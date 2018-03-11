@@ -25,6 +25,7 @@ cardImage: 'images/queen-of-hearts.png'
 	];
 
 
+
 var cardsInPlay = [];
 
 var checkForMatch = function () {
@@ -36,15 +37,33 @@ alert("Sorry, try again.");
 };
 
 
-var flipCard = function (cardID) {
-console.log ("User flipped " + cards[cardID].rank);
-cardsInPlay.push(cards[cardID].rank);
-console.log(cards[cardID].cardImage);
-console.log(cards[cardID].suit);
+
+var flipCard = function () {
+var cardId = this.getAttribute('data-id');
+this.src = cards[cardId].cardImage;
+console.log ("User flipped " + cards[cardId].rank);
+cardsInPlay.push(cards[cardId].rank);
+console.log(cards[cardId].suit);
+console.log(cards[cardId].cardImage);
 checkForMatch();
 };
 
-flipCard (0);
-flipCard (2);
+
+var createBoard = function () {
+	for (var i = 0; i < cards.length; i++) {
+	var cardElement = document.createElement('IMG');
+	cardElement.src = "images/back.png";
+	cardElement.setAttribute ('data-id', i);
+	cardElement.addEventListener('click', flipCard);
+	document.getElementsByClassName('board clearfix')[0].appendChild(cardElement);
+	};
+};
+
+createBoard();
+
+
+
+
+
 
 
